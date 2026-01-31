@@ -1,10 +1,9 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : Entity
 {
-    [SerializeField]
-    private int health;
     [SerializeField]
     private float speed;
     private GameObject player;

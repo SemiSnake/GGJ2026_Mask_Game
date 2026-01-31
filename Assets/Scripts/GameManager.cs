@@ -1,6 +1,9 @@
+using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
-public class CombatManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -14,8 +17,8 @@ public class CombatManager : MonoBehaviour
         
     }
 
-    public static void HandleDamageInteraction(AttackPattern attack, Entity b)
+    public static void StartGame()
     {
-        b.ReduceHealth(attack.damage);
+        SceneManager.LoadScene("Map");
     }
 }

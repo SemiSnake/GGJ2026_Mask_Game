@@ -1,4 +1,5 @@
 using Unity.Mathematics;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,10 +35,9 @@ public class PlayerController : Entity
         Vector2 wishdir = InputSystem.actions.FindAction("Move").ReadValue<Vector2>();
         gameObject.transform.position += new Vector3(wishdir.x,0,0) * Time.deltaTime * movementSpeed;
 
-        if(jumpAction.WasPressedThisFrame() && isGrounded())
+        if(jumpAction.IsPressed() && isGrounded())
         {
             rb.linearVelocity = Vector2.up * jumpHeight;
-            touchingGround = false;
         }
 
         if (attackAction.WasPressedThisFrame() && attackTimer <= 0)
@@ -71,5 +71,10 @@ public class PlayerController : Entity
         {
             touchingGround = true;
         }
+    }
+
+    public override void Die()
+    {
+        GameManager.StartGame();
     }
 }
