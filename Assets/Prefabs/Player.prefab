@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 9192371167220641318}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.46, y: 0.64, z: 0}
+  m_LocalPosition: {x: -1.62, y: 0.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -109,7 +109,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -179,5 +179,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9a045f0d38ba2458665178fe2b20f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  jumpHeight: 10
-  movementSpeed: 3
+  jumpHeight: 16
+  movementSpeed: 5
