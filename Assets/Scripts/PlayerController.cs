@@ -2,10 +2,11 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Entity
 {
     private Rigidbody2D rb;
     private InputAction jumpAction;
+    private InputAction attackAction;
     private GameObject cam;
 
     [SerializeField]
@@ -13,7 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float movementSpeed = 3f;
 
-
+    private float attackCooldown = 1f;
+    private float attackTimer = 0f;
     private bool touchingGround;
     private void Awake() {
      
@@ -24,6 +26,7 @@ public class PlayerController : MonoBehaviour
         cam.GetComponent<CameraController>().setActivePlayer(gameObject);
         rb = gameObject.GetComponent<Rigidbody2D>();
         jumpAction = InputSystem.actions.FindAction("Jump");
+        attackAction = InputSystem.actions.FindAction("Attack");
     }
 
     void Update()
@@ -36,6 +39,13 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = Vector2.up * jumpHeight;
             touchingGround = false;
         }
+
+        if (attackAction.WasPressedThisFrame() && attackTimer <= 0)
+        {
+            AttackManager.performAttack(this, "Enemy");
+            attackTimer = attackCooldown;
+        }
+        attackTimer -= Time.deltaTime;
     }
 
     private bool isGrounded()
