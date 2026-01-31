@@ -6,15 +6,22 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     private InputAction jumpAction;
+    private GameObject cam;
 
     [SerializeField]
     private float jumpHeight = 10f;
     [SerializeField]
     private float movementSpeed = 3f;
 
+
     private bool touchingGround;
+    private void Awake() {
+     
+    }
     void Start()
     {
+        cam = Camera.main.gameObject;
+        cam.GetComponent<CameraController>().setActivePlayer(gameObject);
         rb = gameObject.GetComponent<Rigidbody2D>();
         jumpAction = InputSystem.actions.FindAction("Jump");
     }
