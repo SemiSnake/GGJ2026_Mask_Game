@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,8 @@ public class PlayerController : MonoBehaviour
     private float jumpHeight = 10f;
     [SerializeField]
     private float movementSpeed = 3f;
+
+    private bool touchingGround;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -21,15 +24,35 @@ public class PlayerController : MonoBehaviour
         Vector2 wishdir = InputSystem.actions.FindAction("Move").ReadValue<Vector2>();
         gameObject.transform.position += new Vector3(wishdir.x,0,0) * Time.deltaTime * movementSpeed;
 
-        if(jumpAction.WasPressedThisFrame())
+        if(jumpAction.WasPressedThisFrame() && isGrounded())
         {
             rb.linearVelocity = Vector2.up * jumpHeight;
-            //rb.AddForce(Vector2.up * jumpHeight);
+            touchingGround = false;
         }
     }
 
     private bool isGrounded()
     {
-        return false;
+        if(math.abs(rb.linearVelocityY) < 0.1 && touchingGround) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    private void OnCollisionExit2D(Collision2D other) {
+        if(other.gameObject.tag == "Ground")
+        {
+            touchingGround = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            touchingGround = true;
+        }
     }
 }
