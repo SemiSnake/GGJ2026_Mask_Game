@@ -50,12 +50,7 @@ public class PlayerController : Entity
 
     private bool isGrounded()
     {
-        if(math.abs(rb.linearVelocityY) < 0.1 /*&& touchingGround*/) {
-            return true;
-        } else {
-            return false;
-        }
-
+        return math.abs(rb.linearVelocityY) < 0.1 && touchingGround;
     }
 
     private void OnCollisionExit2D(Collision2D other) {
