@@ -8,7 +8,10 @@ public class Entity : MonoBehaviour
     public AttackPattern attackPattern;
 
     [SerializeField]
-    private int health;
+    private int health = 1;
+
+    [SerializeField]
+    public float movementSpeed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

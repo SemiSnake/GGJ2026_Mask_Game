@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
-    [SerializeField]
-    private float speed;
     private GameObject player;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

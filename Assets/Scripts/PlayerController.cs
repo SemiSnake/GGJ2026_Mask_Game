@@ -1,4 +1,5 @@
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,11 +10,11 @@ public class PlayerController : Entity
     private InputAction jumpAction;
     private InputAction attackAction;
     private GameObject cam;
+    private Animator animator;
+
 
     [SerializeField]
     private float jumpHeight = 10f;
-    [SerializeField]
-    private float movementSpeed = 3f;
 
     private float attackCooldown = 1f;
     private float attackTimer = 0f;
@@ -28,6 +29,7 @@ public class PlayerController : Entity
         rb = gameObject.GetComponent<Rigidbody2D>();
         jumpAction = InputSystem.actions.FindAction("Jump");
         attackAction = InputSystem.actions.FindAction("Attack");
+        animator = transform.GetChild(0).GetComponent<Animator>();
     }
 
     void Update()
@@ -42,7 +44,9 @@ public class PlayerController : Entity
 
         if (attackAction.WasPressedThisFrame() && attackTimer <= 0)
         {
+            Debug.Log("Attack");
             AttackManager.performAttack(this, "Enemy");
+            animator.SetTrigger("Attack");
             attackTimer = attackCooldown;
         }
         attackTimer -= Time.deltaTime;
@@ -50,7 +54,7 @@ public class PlayerController : Entity
 
     private bool isGrounded()
     {
-        return math.abs(rb.linearVelocityY) < 0.1 && touchingGround;
+        return /*math.abs(/*rb.linearVelocityY) < 0.1 && */touchingGround;
     }
 
     private void OnCollisionExit2D(Collision2D other) {
